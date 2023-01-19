@@ -1,0 +1,27 @@
+{
+    "name": "halloverden/symfony-link-mobility-notifier-bundle",
+    "description": "Link mobility SMS transport for Symfony notifier",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "HalloVerden\\LinkMobilityNotifierBundle\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Tom Roar Furunes",
+            "email": "tom.roar@halloverden.no"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "ext-simplexml": "*",
+        "php": ">=8.2",
+        "symfony/framework-bundle": "^6.2",
+        "symfony/notifier": "^6.2",
+        "symfony/http-client": "^6.2",
+        "giggsey/libphonenumber-for-php": "^8.13"
+    }
+}
