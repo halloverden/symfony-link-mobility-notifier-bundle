@@ -8,6 +8,11 @@
             "HalloVerden\\LinkMobilityNotifierBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "HalloVerden\\LinkMobilityNotifierBundle\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Tom Roar Furunes",
@@ -24,5 +29,8 @@
         "symfony/notifier": "^6.2",
         "symfony/http-client": "^6.2",
         "giggsey/libphonenumber-for-php": "^8.13"
+    },
+    "require-dev": {
+        "symfony/phpunit-bridge": "^6.2"
     }
 }
