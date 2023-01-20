@@ -18,6 +18,7 @@
     "prefer-stable": true,
     "require": {
         "ext-simplexml": "*",
+        "ext-dom": "*",
         "php": ">=8.2",
         "symfony/framework-bundle": "^6.2",
         "symfony/notifier": "^6.2",
