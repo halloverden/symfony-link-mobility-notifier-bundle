@@ -1,0 +1,6 @@
+services:
+  hallo_verden_link_mobility_notifier.transport_factory:
+    class: HalloVerden\LinkMobilityNotifierBundle\Transport\LinkMobilityTransportFactory
+    parent: notifier.transport_factory.abstract
+    tags:
+      - { name: texter.transport_factory }
