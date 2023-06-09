@@ -2,6 +2,7 @@
 
 namespace HalloVerden\LinkMobilityNotifierBundle\Transport;
 
+use HalloVerden\LinkMobilityNotifierBundle\Options\LinkMobilityMessageType;
 use HalloVerden\LinkMobilityNotifierBundle\Options\LinkMobilityOptions;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumber;
@@ -78,7 +79,7 @@ final class LinkMobilityTransport extends AbstractTransport {
       'headers' => [
         'Content-Type' => 'application/xml; charset=utf-8'
       ],
-      'body' => $this->createXml($message->getSubject(), $phoneNumber, $from, $options->getSessionData() ?? $this->sessionData),
+      'body' => $this->createXml($message->getSubject(), $phoneNumber, $from, $options->getSessionData() ?? $this->sessionData, $options->getMessageType()),
     ]);
 
     try {
@@ -118,18 +119,24 @@ final class LinkMobilityTransport extends AbstractTransport {
   }
 
   /**
-   * @param string      $message
-   * @param PhoneNumber $phoneNumber
-   * @param string      $from
-   * @param string      $sessionData
+   * @param string                  $message
+   * @param PhoneNumber             $phoneNumber
+   * @param string                  $from
+   * @param string                  $sessionData
+   * @param LinkMobilityMessageType $messageType
    *
    * @return string
    */
-  private function createXml(string $message, PhoneNumber $phoneNumber, string $from, string $sessionData): string {
+  private function createXml(string $message, PhoneNumber $phoneNumber, string $from, string $sessionData, LinkMobilityMessageType $messageType): string {
     $xmlElement = new \SimpleXMLElement('<SESSION></SESSION>');
     $xmlElement->CLIENT = $this->username;
     $xmlElement->PW = $this->password;
     $xmlElement->SD = $sessionData;
+
+    $xmlElement->MSGLST->MSG->OP = $messageType->value;
+    if ($messageType === LinkMobilityMessageType::UNICODE) {
+      $message = \bin2hex(\mb_convert_encoding($message, 'UCS-2'));
+    }
 
     $xmlElement->MSGLST->MSG->TEXT = null;
     $node = \dom_import_simplexml($xmlElement->MSGLST->MSG->TEXT);
