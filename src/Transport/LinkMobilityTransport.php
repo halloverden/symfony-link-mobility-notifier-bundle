@@ -134,6 +134,9 @@ final class LinkMobilityTransport extends AbstractTransport {
     $xmlElement->SD = $sessionData;
 
     $xmlElement->MSGLST->MSG->OP = $messageType->value;
+    if ($messageType === LinkMobilityMessageType::UNICODE) {
+      $message = \bin2hex(\mb_convert_encoding($message, 'UCS-2'));
+    }
 
     $xmlElement->MSGLST->MSG->TEXT = null;
     $node = \dom_import_simplexml($xmlElement->MSGLST->MSG->TEXT);
